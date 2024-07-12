@@ -155,9 +155,9 @@ window.location.href = '/'
     <div className="min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <button
         onClick={openModal}
-        className="bg-blue-500 text-white px-4 py-2 rounded "
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-slate-700 transition-all duration-300"
       >
-        <span className="text center ml-2">Login&nbsp;&nbsp;</span>
+        <span className="text center ml-2 ">Login&nbsp;&nbsp;</span>
       </button>
 
       <div
@@ -260,34 +260,3 @@ window.location.href = '/'
 
 export default Login;
 
-// const history = useHistory();
-
-// const handleLogin = async () => {
-//   try {
-//     const response = await axios.post('http://localhost:5000/auth/login', { username, password });
-//     console.log('Logged in successfully:', response.data);
-//     // Optionally, you can handle state updates or redirects upon successful login
-//     // history.push('/')
-//   } catch (error) {
-//     console.error('Error logging in:', error);
-//   }
-// };
-
-// return (
-//   <div>
-//     <h2>Login</h2>
-//     <input
-//       type="text"
-//       placeholder="Username"
-//       value={username}
-//       onChange={(e) => setUsername(e.target.value)}
-//     />
-//     <input
-//       type="password"
-//       placeholder="Password"
-//       value={password}
-//       onChange={(e) => setPassword(e.target.value)}
-//     />
-//     <button onClick={handleLogin}>Login</button>
-//   </div>
-// );
