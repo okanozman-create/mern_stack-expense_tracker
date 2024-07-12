@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import {
-  CircularInput,
-  CircularTrack,
-  CircularProgress,
-  CircularThumb,
-} from "react-circular-input";
+
+import {CircularInput,CircularTrack,CircularProgress,CircularThumb} from "react-circular-input";
 
 const ExpenseTracker = () => {
   const [balance, setBalance] = useState(0);
@@ -34,7 +30,12 @@ const ExpenseTracker = () => {
       return;
     }
 
-    const newExpense = { description, amount: parsedAmount };
+    // const newExpense = { description, amount: parsedAmount };
+    const newExpense = {
+      description: description, // Ensure these fields are populated
+      amount: parsedAmount,
+      date: new Date(), // Optionally, you can include the date here if needed
+    };
 
     try {
       const response = await axios.post(
@@ -87,7 +88,7 @@ const ExpenseTracker = () => {
         <div className="mt-5 mb-8">
           <form className="flex max-w-full px-12 py-2 gap-1">
             <input
-              placeholder="Expense"
+              placeholder="Expense Name"
               type="text"
               className="rounded-sm border border-stone-500 shadow-lg "
               id="description"

@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import axios from 'axios';
 import Expense from './models/Expense.js';

@@ -1,18 +1,16 @@
-import React from 'react'
-import ExpenseTracker from './components/ExpenseTracker'
-// import Login from './components/Login'
-// import Register from './components/Register'
-import Header from './components/Header'
+import React from "react";
+import ExpenseTracker from "./components/ExpenseTracker";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 
 const App = () => {
   return (
-    <div className=''>
-      {/* <Login/>
-      <Register/> */}
-      <Header/>
-    <ExpenseTracker/>
+    <div className="">
+      <Header />
+      <ExpenseTracker />
+      <Footer/>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
