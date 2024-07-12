@@ -12,6 +12,7 @@ node_modules
 /build
 
 # Ignore miscellaneous files
+.env
 .DS_Store
 .env.local
 .env.development.local
