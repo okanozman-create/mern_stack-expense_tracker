@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-import {CircularInput,CircularTrack,CircularProgress,CircularThumb} from "react-circular-input";
+import {
+  CircularInput,
+  CircularTrack,
+  CircularProgress,
+  CircularThumb,
+} from "react-circular-input";
 
 const ExpenseTracker = () => {
   const [balance, setBalance] = useState(0);
@@ -9,18 +14,36 @@ const ExpenseTracker = () => {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
 
-  const handleDelete = (index) => {
-    // Make a copy of the transactions array
-    const updatedTransactions = [...transactions];
-    // Get the amount of the transaction to be deleted
-    const deletedAmount = updatedTransactions[index].amount;
-    // Remove the transaction at the specified index
-    updatedTransactions.splice(index, 1);
-    // Update the state with the modified transactions array
-    setTransactions(updatedTransactions);
-    // Update the balance by subtracting the deleted amount
-    setBalance((prevBalance) => prevBalance - deletedAmount);
+  // const handleDelete = (index) => {
+  //   const updatedTransactions = [...transactions];
+
+  //   const deletedAmount = updatedTransactions[index].amount;
+
+  //   updatedTransactions.splice(index, 1);
+
+  //   setTransactions(updatedTransactions);
+
+  //   setBalance((prevBalance) => prevBalance - deletedAmount);
+  // };
+
+  const handleDelete = async (index) => {
+    const transactionToDelete = transactions[index];
+
+    try {
+      await axios.delete(`http://localhost:5000/expenses/${transactionToDelete._id}`);
+
+      const updatedTransactions = [...transactions];
+      const deletedAmount = updatedTransactions[index].amount;
+      updatedTransactions.splice(index, 1);
+
+      setTransactions(updatedTransactions);
+      setBalance((prevBalance) => prevBalance - deletedAmount);
+    } catch (error) {
+      console.error('Failed to delete transaction:', error);
+    }
   };
+
+
 
   const addExpense = async () => {
     const parsedAmount = parseFloat(amount);
@@ -30,11 +53,10 @@ const ExpenseTracker = () => {
       return;
     }
 
-    // const newExpense = { description, amount: parsedAmount };
     const newExpense = {
-      description: description, // Ensure these fields are populated
+      description: description,
       amount: parsedAmount,
-      date: new Date(), // Optionally, you can include the date here if needed
+      date: new Date(),
     };
 
     try {
@@ -44,14 +66,11 @@ const ExpenseTracker = () => {
       );
       console.log(response);
       if (response.status === 200) {
-        // Update balance
-
         setBalance((prevBalance) => prevBalance + parsedAmount);
 
-        // Add transaction to the list
         setTransactions((prevTransactions) => [
           ...prevTransactions,
-          response.data, // Use the saved expense returned from the server
+          response.data,
         ]);
 
         setDescription("");
@@ -72,14 +91,13 @@ const ExpenseTracker = () => {
             You've spent
           </h2>
 
-          <div className="">
+          <div>
             <CircularInput value={balance / 100}>
               <CircularTrack />
               <CircularProgress />
               <CircularThumb />
               <text x={100} y={100} textAnchor="middle" dy=".3em" fontSize="40">
-                ${balance.toFixed(2)} <br/>
-                
+                ${balance.toFixed(2)} <br />
               </text>
             </CircularInput>
           </div>

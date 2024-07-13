@@ -77,7 +77,7 @@ router.delete('/:id', async (req, res) => {
     try {
         const expense = await Expense.findByIdAndDelete(req.params.id);
         if (expense) {
-            await expense.remove();
+           
             res.json({ message: 'Expense removed' });
         } else {
             res.status(404).json({ message: 'Expense not found' });
