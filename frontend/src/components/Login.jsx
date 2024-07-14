@@ -7,6 +7,7 @@ const Login = () => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
 
+
   const handleLogin = async () => {
     try {
       const response = await axios.post('http://localhost:5000/auth/login', { email: usermail, password });
@@ -16,7 +17,7 @@ const Login = () => {
       localStorage.setItem('awsToken', response.data.token);
 
       // Optionally, you can handle state updates or redirects upon successful login
-      window.location.href = '/'; // Redirect to homepage after successful login
+      
       const userEmail = response.data.email;
       alert(`Welcome ${userEmail}! 👍👍👍`);
       window.location.href = '/'; 
@@ -25,6 +26,10 @@ const Login = () => {
       setError("Failed to log in. Please try again."); // Display error message
     }
   };
+
+
+
+
 
   const openModal = () => {
     setShowModal(true);

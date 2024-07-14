@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {  useState } from 'react';
 import Register from './Register';
 import Login from './Login';
 import Logout from './Logout';
 
 const Header = () => {
-  // Check if the user is logged in by verifying the token
-  const isLoggedIn = !!localStorage.getItem('awsToken');
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('awsToken'));
+
 
   return (
     <div className='flex items-center justify-between h-20 bg-gray-800 text-white px-4'>
@@ -15,11 +15,11 @@ const Header = () => {
       <div className='flex'>
         {!isLoggedIn ? (
           <>
-            <Register />
-            <Login />
+            <Register  />
+            <Login  />
           </>
         ) : (
-          <Logout />
+          <Logout  />
         )}
       </div>
     </div>
