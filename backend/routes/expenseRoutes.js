@@ -1,19 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const Expense = require('../models/Expense');
+const authMiddleware = require('../middleware/authMiddleware');
 
 // GET /expenses
-// Read all expenses
-router.get('/', async (req, res) => {
+// Read all expenses for the logged-in user
+router.get('/', authMiddleware, async (req, res) => {
     try {
-        const expenses = await Expense.find();
-        console.log('Expenses:', expenses);
-        res.json(expenses);
+      console.log('User ID:', req.user.id);
+      const expenses = await Expense.find({ user: req.user.id });
+      console.log('Expenses:', expenses);
+      res.json(expenses);
     } catch (error) {
-        console.error('Error fetching expenses:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
+      console.error('Error fetching expenses:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
     }
-});
+  });
+
+
 
 // GET /expenses/:id
 // Read single expense by ID
@@ -32,15 +36,16 @@ router.get('/:id', async (req, res) => {
 
 // POST /expenses
 // Create a new expense
-router.post('/', async (req, res) => {
+router.post('/', authMiddleware, async (req, res) => {
     const { description, amount, date } = req.body;
+    const userId = req.user.id;
 
     try {
         if (!description || !amount || !date) {
             return res.status(400).json({ message: 'Description, amount, and date are required.' });
         }
 
-        const newExpense = new Expense({ description, amount, date });
+        const newExpense = new Expense({ description, amount, date, user: userId });
         await newExpense.save();
         console.log('New expense added:', newExpense);
         res.json(newExpense);
@@ -77,7 +82,6 @@ router.delete('/:id', async (req, res) => {
     try {
         const expense = await Expense.findByIdAndDelete(req.params.id);
         if (expense) {
-           
             res.json({ message: 'Expense removed' });
         } else {
             res.status(404).json({ message: 'Expense not found' });
