@@ -1,10 +1,18 @@
-import React, {  useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Register from './Register';
 import Login from './Login';
 import Logout from './Logout';
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('awsToken'));
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('awsToken');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
 
 
   return (

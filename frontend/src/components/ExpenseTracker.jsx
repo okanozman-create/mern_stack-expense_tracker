@@ -43,8 +43,6 @@
 //     }
 //   };
 
-
-
 //   const addExpense = async () => {
 //     const parsedAmount = parseFloat(amount);
 
@@ -179,7 +177,7 @@
 
 // export default ExpenseTracker;
 
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   CircularInput,
@@ -198,8 +196,7 @@ const ExpenseTracker = () => {
     const fetchExpenses = async () => {
       const token = localStorage.getItem("awsToken");
       if (!token) {
-        // Handle case where token doesn't exist
-        console.error('Token not found in localStorage');
+        // console.error('Token not found in localStorage');
         return;
       }
       try {
@@ -209,27 +206,21 @@ const ExpenseTracker = () => {
           },
         });
         console.log("Fetched expenses:", response.data);
-        // Handle setting state for transactions and balance here
 
-        setTransactions(response.data); // Assuming response.data is an array of transactions
+        setTransactions(response.data);
 
-        // Calculate and set balance
         const totalBalance = response.data.reduce(
           (acc, transaction) => acc + transaction.amount,
           0
         );
         setBalance(totalBalance);
-
       } catch (error) {
         console.error("Error fetching expenses:", error);
       }
     };
 
-    fetchExpenses(); // Call fetchExpenses directly inside useEffect
-
-  }, []); // Empty dependency array since fetchExpenses does not depend on any variables
-  
-
+    fetchExpenses();
+  }, []);
 
   const addExpense = async () => {
     const parsedAmount = parseFloat(amount);
@@ -305,13 +296,7 @@ const ExpenseTracker = () => {
               <CircularTrack />
               <CircularProgress />
               <CircularThumb />
-              <text
-                x={100}
-                y={100}
-                textAnchor="middle"
-                dy=".3em"
-                fontSize="40"
-              >
+              <text x={100} y={100} textAnchor="middle" dy=".3em" fontSize="40">
                 ${balance.toFixed(2)} <br />
               </text>
             </CircularInput>
@@ -365,9 +350,9 @@ const ExpenseTracker = () => {
               key={transaction._id}
               className="flex justify-between items-center bg-white shadow-xl pl-2"
             >
-              <span className="text-left uppercase">{`${transaction.description}: $${transaction.amount.toFixed(
-                2
-              )}`}</span>
+              <span className="text-left uppercase">{`${
+                transaction.description
+              }: $${transaction.amount.toFixed(2)}`}</span>
               <button
                 onClick={() => handleDelete(index)}
                 className="bg-slate-500 hover:bg-slate-700 text-white py-1 px-2 rounded-md"

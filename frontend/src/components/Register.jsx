@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const Register = () => {
-  const [email, setEmail] = useState(''); // Use 'email' instead of 'usermail'
+  const [email, setEmail] = useState(''); 
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [showModal, setShowModal] = useState(false);
 
   const handleRegister = async () => {
     try {
-      const newUser = { email, password }; // Use 'email' instead of 'usermail'
+      const newUser = { email, password }; 
       const response = await axios.post(
         "http://localhost:5000/auth/register",
         newUser
@@ -17,9 +17,11 @@ const Register = () => {
 
       if (response.status === 201) {
         console.log("User registered successfully");
-        setEmail(""); // Clear email input after registration
-        setPassword(""); // Clear password input after registration
+        setEmail(""); 
+        setPassword(""); 
         // Optionally, you can redirect to another page or show a success message
+        alert('User registered successfully! You can now log in.');
+        window.location.href = "/";
       } else {
         console.error("Failed to register user:", response.statusText);
       }

@@ -7,29 +7,25 @@ const Login = () => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
 
-
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/auth/login', { email: usermail, password });
-      console.log('Logged in successfully:', response.data);
+      const response = await axios.post("http://localhost:5000/auth/login", {
+        email: usermail,
+        password,
+      });
+      console.log("Logged in successfully:", response.data);
 
       // Store the JWT token securely (example using localStorage)
-      localStorage.setItem('awsToken', response.data.token);
+      localStorage.setItem("awsToken", response.data.token);
 
-      // Optionally, you can handle state updates or redirects upon successful login
-      
       const userEmail = response.data.email;
       alert(`Welcome ${userEmail}! 👍👍👍`);
-      window.location.href = '/'; 
+      window.location.href = "/";
     } catch (error) {
-      console.error('Error logging in:', error);
-      setError("Failed to log in. Please try again."); // Display error message
+      console.error("Error logging in:", error);
+      setError("Failed to log in. Please try again.");
     }
   };
-
-
-
-
 
   const openModal = () => {
     setShowModal(true);
@@ -81,7 +77,7 @@ const Login = () => {
                   <input
                     id="login-usermail"
                     name="usermail"
-                    type="email" // Update type to 'email' for email validation
+                    type="email"
                     autoComplete="usermail"
                     required
                     value={usermail}
