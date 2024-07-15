@@ -11,6 +11,11 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.use(cors({
+    origin: 'https://expense-tracker-mern-7u6waoi4t-okans-projects-fdd8025d.vercel.app/'
+  }));
+
+
 
 connectDB();
 
