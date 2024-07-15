@@ -7,17 +7,37 @@ const Login = () => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
 
+  // const handleLogin = async () => {
+  //   try {
+  //     const response = await axios.post("http://localhost:5000/auth/login", {
+  //       email: usermail,
+  //       password,
+  //     });
+  //     console.log("Logged in successfully:", response.data);
+
+  //     // Store the JWT token securely (example using localStorage)
+  //     localStorage.setItem("awsToken", response.data.token);
+
+  //     const userEmail = response.data.email;
+  //     alert(`Welcome ${userEmail}! 👍👍👍`);
+  //     window.location.href = "/";
+  //   } catch (error) {
+  //     console.error("Error logging in:", error);
+  //     setError("Failed to log in. Please try again.");
+  //   }
+  // };
+
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/auth/login", {
+      const response = await axios.post("https://expense-tracker-mern-git-master-okans-projects-fdd8025d.vercel.app/", {
         email: usermail,
         password,
       });
       console.log("Logged in successfully:", response.data);
-
+  
       // Store the JWT token securely (example using localStorage)
       localStorage.setItem("awsToken", response.data.token);
-
+  
       const userEmail = response.data.email;
       alert(`Welcome ${userEmail}! 👍👍👍`);
       window.location.href = "/";
@@ -26,6 +46,8 @@ const Login = () => {
       setError("Failed to log in. Please try again.");
     }
   };
+  
+
 
   const openModal = () => {
     setShowModal(true);
