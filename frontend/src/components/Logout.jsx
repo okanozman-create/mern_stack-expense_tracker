@@ -13,7 +13,7 @@ const Logout = () => {
     localStorage.removeItem("awsToken");
 
     // Optionally, notify the server about logout (not needed for JWT in local storage)
-    // axios.post('http://localhost:5000/auth/logout').then(response => console.log(response.data));
+    //  axios.post('http://localhost:5000/auth/logout').then(response => console.log(response.data));
 
     alert("You have been logged out.");
     window.location.href = "/";
